@@ -63,8 +63,6 @@ public class TeacherAI : MonoBehaviour {
 			
 		if (detectPlayerCollision ()) {
 			DrawVision (viewAngle, materialHit);
-			TextMesh textMesh = t.GetComponent(typeof(TextMesh)) as TextMesh;
-			textMesh.text = "????";
 		} else {
 			DrawVision (viewAngle, material);
 		}
