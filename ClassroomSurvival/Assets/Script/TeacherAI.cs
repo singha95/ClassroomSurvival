@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class TeacherAI : MonoBehaviour {
 
@@ -13,14 +13,16 @@ public class TeacherAI : MonoBehaviour {
 	public Material material;
 	public Material materialHit;
 	private float rotationSpeed = 1.0f;
-	float angle_fov = 35;
-	float rayCastDisplacement = 35;
+	float angle_fov = 7;
+	float rayCastDisplacement = 7;
 	float dist_min = 0.0f;
-	float dist_max = 5.0f;
+	float dist_max = 10.0f;
 	private float viewAngle = 0;
 	private float targetAngle = 180;
 	private float Orientation = -1;
 	private bool WillMove = true;
+	public Text gameOver;
+	public Text timer;
 
 	void Start()
 	{
@@ -63,10 +65,21 @@ public class TeacherAI : MonoBehaviour {
 			
 		if (detectPlayerCollision ()) {
 			DrawVision (viewAngle, materialHit);
+			RaycastHit = true;
+			material = materialHit;
 		} else {
 			DrawVision (viewAngle, material);
 		}
 
+		if (RaycastHit == true) {
+			GameEnd ();
+		}
+	}
+
+	void GameEnd()
+	{
+		gameOver.text = "You got caught by the teacher! You Lose.";
+		timer.text = "0";
 	}
 
 	float GetEnemyAngle()
@@ -91,24 +104,21 @@ public class TeacherAI : MonoBehaviour {
 			Mathf.Cos(Mathf.Deg2Rad * (viewAngle + rayCastDisplacement))));
 		RaycastHit hit;
 
-		Debug.DrawRay(transform.position, fwd, Color.red);
-		if (Physics.Raycast (transform.position, fwd, out hit, 5.0f)) {
+		if (Physics.Raycast (transform.position, fwd, out hit, 15.0f)) {
 			if (hit.transform.tag == "Player") {
 				//Debug.Log ("Found Player!");
 				return true;
 			}
 		}
 
-		Debug.DrawRay(transform.position, cnt, Color.red);
-		if (Physics.Raycast (transform.position, cnt, out hit, 5.0f)) {
+		if (Physics.Raycast (transform.position, cnt, out hit, 15.0f)) {
 			if (hit.transform.tag == "Player") {
 				//Debug.Log ("Found Player!");
 				return true;
 			}
 		}
 
-		Debug.DrawRay(transform.position, bck, Color.red);
-		if (Physics.Raycast (transform.position, bck, out hit, 5.0f)) {
+		if (Physics.Raycast (transform.position, bck, out hit, 15.0f)) {
 			if (hit.transform.tag == "Player") {
 				//Debug.Log ("Found Player!");
 				return true;
@@ -140,11 +150,11 @@ public class TeacherAI : MonoBehaviour {
 		for (int i = 0; i < quality; i++)
 		{
 			Vector3 sphere_curr = new Vector3(
-				Mathf.Sin(Mathf.Deg2Rad * (angle_curr)), 0.1f,   // Left handed CW
+				Mathf.Sin(Mathf.Deg2Rad * (angle_curr)), 0.01f,   // Left handed CW
 				Mathf.Cos(Mathf.Deg2Rad * (angle_curr)));
 
 			Vector3 sphere_next = new Vector3(
-				Mathf.Sin(Mathf.Deg2Rad * (angle_next)), 0.1f,
+				Mathf.Sin(Mathf.Deg2Rad * (angle_next)), 0.01f,
 				Mathf.Cos(Mathf.Deg2Rad * (angle_next)));
 
 			pos_curr_min = transform.position + sphere_curr * dist_min;
