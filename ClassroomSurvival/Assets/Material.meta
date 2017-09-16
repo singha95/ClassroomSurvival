@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:ClassroomSurvival/Assets/Material.meta
 guid: 90bbfb09ce42f634d9556f8a1dfa6844
 folderAsset: yes
 timeCreated: 1505585316
+=======
+guid: a6a8302d70f0f408291383bf2092c217
+folderAsset: yes
+timeCreated: 1505584941
+>>>>>>> 38d09a4fe529c524f5f167b6dcc4861d769cd5ee:ClassroomSurvival/Assets/Material.meta
 licenseType: Free
 DefaultImporter:
   userData: 
