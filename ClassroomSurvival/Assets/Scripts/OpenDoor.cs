@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class OpenDoor : MonoBehaviour {
 
-	//private Rigidbody rb;
-
 	private bool isOpen;
+	private Vector3 axisPosition;
 
 	void Start(){
-		//rb = GetComponent<Rigidbody> ();
 		isOpen = false;
+		axisPosition = transform.position + new Vector3 (-0.4f, 0.0f, 0.0f);
 	}
 
-	void Update() {
-		if (Input.GetButton ("Fire1")) {
-			//transform.position = new Vector3(-3.886f, 0.739f, 5.445f);
+	void OnTriggerEnter() {
+		//controller?
+		if (Input.GetKeyDown (KeyCode.R)) {
 			if (!isOpen) {
-				transform.RotateAround (transform.position + new Vector3 (-0.1f, 0.0f, 0.0f), transform.up, -90f);
+				transform.RotateAround (axisPosition, transform.up, -90f);
 				isOpen = true;
 			} else {
-				transform.RotateAround (transform.position + new Vector3 (-0.1f, 0.0f, 0.0f), transform.up, 90f);
+				transform.RotateAround (axisPosition, transform.up, 90f);
 				isOpen = false;
 			}
 		}
